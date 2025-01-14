@@ -7,7 +7,7 @@ import A_icon from "../assets/images/A _icon.png";
 import gpt_icon from "../assets/images/gpt_icon.png";
 import ABC from "../assets/images/ABC.jpg";
 
-const TablePage = () => {
+const Table = () => {
 
   const [rows, setRows] = useState([
     { id: 1, "Input Column": 'Oct 12, 2024 at 14:08 PM', "Action Column": 'Bitscale Evaluation - Account relev...', "Enrich Company": 'Bitscale Evaluation - Account relev...' },
@@ -290,4 +290,4 @@ const TablePage = () => {
   );
 };
 
-export default TablePage;
+export default Table;
