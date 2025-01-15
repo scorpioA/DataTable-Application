@@ -24,13 +24,34 @@ const Table = () => {
   ]);
 
   const handleAddRow = () => {
-    setRows([
-      ...rows,
-      {
-        id: rows.length + 1,
-        ...columns.reduce((acc, column) => ({ ...acc, [column]: '' }), {}),
-      },
+    setRows([...rows,
+    {
+      id: rows.length + 1,
+      ...columns.reduce((acc, column) => ({ ...acc, [column]: '' }), {}),
+    },
     ]);
+  };
+
+  const handleDeleteRow = () => {
+    if (rows.length > 5) {
+      setRows(rows.slice(0, rows.length - 1));
+    } else {
+      alert("Initial rows cannot be deleted.");
+    }
+  };
+
+  const handleAddColumn = () => {
+    const newColumnName = `New Column ${columns.length + 1}`;
+    setColumns([...columns, newColumnName]);
+    setRows(rows.map((row) => ({ ...row, [newColumnName]: '' })));
+  };
+
+  const handleDeleteColumn = () => {
+    if (columns.length > 3) {
+      setColumns(columns.slice(0, columns.length - 1));
+    } else {
+      alert("Initial columns cannot be deleted.");
+    }
   };
 
   return (
@@ -202,23 +223,13 @@ const Table = () => {
                       <th className="px-4 py-2 border border-gray-300 text-center">
                         <div className="flex flex-row space-x-2 items-center">
                           <Button
-                            onClick={() => {
-                              const newColumnName = `New Column ${columns.length + 1}`;
-                              setColumns([...columns, newColumnName]);
-                              setRows(rows.map((row) => ({ ...row, [newColumnName]: '' })));
-                            }}
+                            onClick={handleAddColumn}
                             icon="pi pi-plus"
                             className="bg-green-800 text-white px-4 py-2 rounded-lg shadow font-normal"
                             label="Add Column"
                           />
                           <Button
-                            onClick={() => {
-                              if (columns.length > 3) {
-                                setColumns(columns.slice(0, columns.length - 1));
-                              } else {
-                                alert("Initial columns cannot be deleted.");
-                              }
-                            }}
+                            onClick={handleDeleteColumn}
                             icon="pi pi-trash"
                             className="bg-red-800 text-white px-4 py-2 rounded-lg shadow font-normal"
                             label="Delete Column"
@@ -265,13 +276,7 @@ const Table = () => {
                             label="Add Row"
                           />
                           <Button
-                            onClick={() => {
-                              if (rows.length > 5) {
-                                setRows(rows.slice(0, rows.length - 1));
-                              } else {
-                                alert("Initial rows cannot be deleted.");
-                              }
-                            }}
+                            onClick={handleDeleteRow}
                             className="bg-red-800 text-white px-4 py-2 rounded-lg shadow font-normal"
                             icon="pi pi-trash"
                             label="Delete Row"
